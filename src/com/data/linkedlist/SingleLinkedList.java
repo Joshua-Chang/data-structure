@@ -228,6 +228,27 @@ public class SingleLinkedList {
         return r;
     }
 
+    /*带头链表的反转*/
+    public Node inverseLinkList_head(Node p) {
+        /*新建一个头*/
+        Node head = new Node('_', null);
+        head.next = p;
+        /*
+        带头结点的链表翻转等价于
+        从第二个元素开始重新头插法建立链表
+        */
+        Node cur = p.next;
+        p.next = null;
+        Node next = null;
+        while (cur != null) {//head.next是一个整体代指cur的pre一个
+            next = cur.next;
+            cur.next = head.next;//3、cur的next指向自增前的自己：调转指针指向
+            head.next = cur;//1、cur自增前存储为head.next。
+            cur = next;//2、自增
+        }
+        return head;
+    }
+
     /*判断是否是回文串，遍历比较左右两个链表的索引，查看元素是否完全相同*/
     public boolean TFResult(Node left, Node right) {
         Node l = left;
