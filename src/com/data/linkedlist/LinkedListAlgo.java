@@ -48,7 +48,6 @@ public class LinkedListAlgo {
             //0 1
             //  1   3
             //    2     5
-            //      3       0
             fast = fast.next.next;
             slow = slow.next;
             if (slow == fast) return true;
@@ -67,30 +66,60 @@ public class LinkedListAlgo {
         /*现在fast是正数第k个*/
         if (fast == null) return list;/*正数第k个就越界了，说明链表内不够k个*/
         Node slow = list;
-        Node pre=null;//slow的前驱节点
-        while (fast.next!=null){
-            fast=fast.next;
-            pre=slow;
-            slow=slow.next;
+        Node pre = null;//slow的前驱节点
+        while (fast.next != null) {
+            fast = fast.next;
+            pre = slow;
+            slow = slow.next;
         }
-        if (pre==null){//上个循环没发生。即fast是最后一个，没有next了。倒数第k个即下标为0的元素
-            list=list.next;//去掉下标为0的元素
-        }else {//fast是最后一个元素，slow是倒数第k个。改变slow前驱节点的指针指向既可
-            pre.next=pre.next.next;
+        if (pre == null) {//上个循环没发生。即fast是最后一个，没有next了。倒数第k个即下标为0的元素
+            list = list.next;//去掉下标为0的元素
+        } else {//fast是最后一个元素，slow是倒数第k个。改变slow前驱节点的指针指向既可
+            pre.next = pre.next.next;
         }
         return list;
     }
 
     /*求中间节点*/
-    public static Node findMiddleNode(Node list){
+    public static Node findMiddleNode(Node list) {
         if (list == null) return null;
 
         Node fast = list;
         Node slow = list;
-        while (fast!=null&&fast.next!=null){
-            fast=fast.next.next;
-            slow=slow.next;
+        while (fast != null && fast.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
         }
         return slow;/*当奇数个时slow是中间节点。当偶数个时slow是中间的两个靠前的一个*/
+    }
+
+
+    // 有序链表合并 Leetcode 21
+//Definition for singly-linked list.
+    public class ListNode {
+        int val;
+        ListNode next;
+
+        ListNode(int x) {
+            val = x;
+        }
+    }
+
+    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+        ListNode soldier = new ListNode(0);/*利用哨兵*/
+        ListNode p = soldier;
+        while (l1 != null && l2 != null) {
+            if (l1.val < l2.val) {
+                p.next = l1;
+                l1 = l1.next;
+            } else {
+                p.next = l2;
+                l2 = l2.next;
+            }
+            p = p.next;
+        }
+        if (l1 != null) p.next = l1;
+        if (l2 != null) p.next = l2;
+        return soldier.next;
     }
 }
