@@ -44,13 +44,13 @@ public class LinkedListAlgo {
         Node fast = list.next;
         Node slow = list;
         while (fast != null && fast.next != null) {
-            //0 1 2 3 4 5 6 0
+            //0 1 2 3 4 5 6->0->1...
             //0 1
             //  1   3
             //    2     5
             fast = fast.next.next;
             slow = slow.next;
-            if (slow == fast) return true;
+            if (slow == fast) return true;//一旦存在环，fast在转完第1圈后，一定会在接下来的几圈，从后方追上slow
         }
         return false;
     }
