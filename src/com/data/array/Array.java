@@ -1,5 +1,6 @@
 package com.data.array;
 /*
+* 数组是连续存储。破坏这一特性的插入/删除都搬移数据
 * 数组挪位
 * data[i]=data[i-1]  和 data[i+1]=data[i] 均表示数组上的元素都，往后挪1位
 * data[i]=data[i+1]  和 data[i-1]=data[i] 均表示数组上的元素都，往前挪1为
