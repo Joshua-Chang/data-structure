@@ -50,10 +50,10 @@ public class MergeSort {
      * 利用哨兵合并
      */
     private static void mergeBySentry(int[] arr, int start, int mid, int end) {
-        int[] leftArr = new int[mid - start + 2];
+        int[] leftArr = new int[mid - start + 2];/*+2是size，index是 +1，哨兵再占一个index最大mid-start*/
         /*[start,mid]：包括mid*/
         for (int i = 0; i <= mid - start; i++) leftArr[i] = arr[start + i];
-        leftArr[mid - start + 1] = Integer.MAX_VALUE;
+        leftArr[mid - start + 1] = Integer.MAX_VALUE;/*尾部加入哨兵*/
 
         /*(mid,end]不包括mid*/
         int[] rightArr = new int[end - mid + 1];

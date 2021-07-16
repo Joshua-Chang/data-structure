@@ -8,7 +8,7 @@ public class Sort {
     public static void bubbleSort(int[] arr, int size) {
         if (size <= 1) return;
         for (int i = 0; i < size; i++) {
-            boolean flag = false;/*提前推出标识位：冒泡中不再有元素交换则提前退出*/
+            boolean flag = false;/*优化：提前推出标识位：冒泡中不再有元素交换则提前退出*/
             /*冒泡*/
             for (int j = 0; j < size - i - 1; j++) {/*size - i - 1 每完成一次冒泡，数组末尾便有一个元素排序完成*/
                 if (arr[j] > arr[j + 1]) {
@@ -19,6 +19,39 @@ public class Sort {
                 }
             }
             if (!flag) break;
+        }
+    }
+
+    /**
+     * 向下冒泡：把最小的排到开始
+     * 正常冒泡：把最大的排到末尾
+     */
+    public static void bubbleDownSort(int[] arr, int size) {
+        if (size <= 1) return;
+        for (int i = 0; i < size; i++) {
+            for (int j = i + 1; j < size; j++) {/*j+i 每完成一次冒泡，数组开始便有一个元素排序完成*/
+                if (arr[i] < arr[j]) {
+                    int temp = arr[i];
+                    arr[i] = arr[j];
+                    arr[j] = temp;
+                }
+            }
+        }
+    }
+
+    /**
+     * 希尔排序
+     */
+    public static void shellSort(int[] arr, int size) {
+        if (size <= 1) return;
+        for (int i = 0; i < size; i++) {
+            int minIndex = 0;
+            for (int j = i+1; j < size; j++) {
+                if (arr[j] < arr[minIndex]) minIndex = j;
+            }
+            int temp = arr[i];
+            arr[i] = arr[minIndex];
+            arr[minIndex] = temp;
         }
     }
 
@@ -53,8 +86,8 @@ public class Sort {
             for (int j = i + 1; j < size; j++) if (arr[j] < arr[minIndex]) minIndex = j;/*比较：找到最小元素的索引*/
             /*交换*/
             int temp = arr[i];
-            arr[i]=arr[minIndex];
-            arr[minIndex]=temp;
+            arr[i] = arr[minIndex];
+            arr[minIndex] = temp;
         }
     }
 }
