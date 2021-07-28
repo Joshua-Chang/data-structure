@@ -11,9 +11,12 @@ import java.nio.channels.NetworkChannel
  * 具名方法：不可像变量
  * 匿名方法：可以像变量 拥有方法字面值
  * 匿名方法拥有方法字面值像变量一样，可以做方法的参数或返回值
+ * 也可以直接调用或 方法名.invoke()调用
  * */
 fun pr0() {
     println()
+    addd1.invoke(2,3)
+    addd1(1,2)
 }
 
 fun pr1() = println()/*具名方法：不可以做变量*/
