@@ -1,7 +1,6 @@
 package com.design.gen;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Collect {
@@ -61,19 +60,15 @@ public class Collect {
 
     public void test() {
         //PECS的规范，是为了实现集合的多态
-
-        Fruit fruit=new Apple();/*多态：苹果 IS-A 水果*/
-        ArrayList<Fruit>fruits=new ArrayList<Apple>();/*编译失败：苹果的集合 NOT-IS-A 水果的集合*/
-
-        ArrayList<?extends Fruit>fruits2=new ArrayList<Apple>();//协变
-        fruits2.add(new Apple());/*并不知道要加入的是什么类型，Apple、Orange、Pear都可以*/
+        ArrayList<? extends Fruit> fruits2 = new ArrayList<Apple>();//协变
+//        fruits2.add(new Apple());/*并不知道要加入的是什么类型，Apple、Orange、Pear都可以*/
         fruits2.get(0);/*不影响取*/
 
         ArrayList<? super Apple> apples2 = new ArrayList<Fruit>();//逆变
         apples2.add(new Apple());
         apples2.add(new RedApple());//多态为redApple：向下类型转换
         Object object = apples2.get(0);//编译器不知道上限是什么，干脆到顶Object
-        Apple apple2 = apples2.get(0);//编译失败：返回的是object，不能用其子类apple的引用apple2来接收
+//        Apple apple2 = apples2.get(0);//编译失败：返回的是object，不能用其子类apple的引用apple2来接收
         Apple apple3 = (Apple) apples2.get(0);//不能直接取；非取不可就强转
     }
 
@@ -83,8 +78,8 @@ public class Collect {
     public void testCoVariance(ArrayList<? extends Apple> apples) {
         Apple b = new Apple();
         RedApple c = new RedApple();
-        apples.add(b); // does not compile
-        apples.add(c); // does not compile
+//        apples.add(b); // does not compile
+//        apples.add(c); // does not compile
         Fruit a = apples.get(0);
         Apple d = apples.get(0);
     }
@@ -98,24 +93,39 @@ public class Collect {
         RedApple c = new RedApple();
         apples.add(b);
         apples.add(c);
-        Fruit a = apples.get(0); // does not compile
+//        Fruit a = apples.get(0); // does not compile
         Object object = apples.get(0);
     }
-}
 
-class Container<T> {
 
-    public void setAll(ArrayList<T> list) {
+    public void demo() {
+//        Fruit fruit = new Apple();/*多态：苹果 IS-A 水果*/
+//        ArrayList<Fruit> fruits = new ArrayList<Apple>();/*编译失败：苹果的集合 NOT-IS-A 水果的集合*/
+        ArrayList<?extends Fruit> fruits = new ArrayList<Apple>();/*多余的<?extends Fruit>*/
+
+
+//        ArrayList<Apple> apples=  new  ArrayList<Fruit> ();
+        ArrayList<? super Apple> apples=  new  ArrayList<Fruit> ();
+//        apples.add(new Apple());
+//        ArrayList<Apple> apples=fruits;
+
     }
 
-    public ArrayList<T> getAll() {
-        return new ArrayList<T>();
+    interface Comparable<T> {
+        int compareTo(T other);
     }
 
-    public void setAllTrue(List<? extends T> list) {
+    public void demo2(Comparable<Fruit> fruitComparable) {
+        fruitComparable.compareTo(new Apple());
+        Comparable<? super Apple> appleComparable = fruitComparable;
+    }
+    public class Collections {
+        public <T> void copy(List<? super T> dest, List<? extends T> src)   {
+            for (int i=0; i<src.size(); i++) {
+                dest.set(i, src.get(i));
+//从src中获取(生产)一个泛型类型的值；将此泛型类型的值存入dest中消费调。
+            }
+        }
     }
 
-    public ArrayList<? super T> getAllTrue() {
-        return new ArrayList();
-    }
 }

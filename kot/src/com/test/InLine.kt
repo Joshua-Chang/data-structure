@@ -1,4 +1,5 @@
 package com.test
+
 inline fun sum(a:Int,b :Int):Int=a+b
 
 
@@ -60,7 +61,6 @@ inline fun test(noinline block1: () -> Unit, block2: () -> Unit) {
     block2()
 }
 
-
 inline fun sum(a: Int,b: Int,/*crossinline*/ add:(result:Int)->Unit):Int{
     val i = a + b
     add.invoke(i)
@@ -68,6 +68,7 @@ inline fun sum(a: Int,b: Int,/*crossinline*/ add:(result:Int)->Unit):Int{
 }
 
 fun main(args: Array<String>) {
+
 //    sum(1,2)
 //    run()
     println("Start")

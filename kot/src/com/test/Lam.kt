@@ -89,12 +89,19 @@ fun interface IntPredicate {
 }
 
 val isEven = IntPredicate { it % 2 == 0 }
-val isEven2 = object : IntPredicate {
+val isEven2 = IntPredicate { return@IntPredicate it % 2 == 0 }
+val isEven3 = object : IntPredicate {
     /*太麻烦了*/
     override fun accept(i: Int): Boolean {
         return i % 2 == 0
     }
 }
+
+
+
+
+
+
 //可以为较长的泛型类型、函数类型、类嵌套时可用typealias起一个较短的别名
 typealias NodeSet = Set<NetworkChannel>
 typealias FileTable<K> = MutableMap<K, MutableList<File>>

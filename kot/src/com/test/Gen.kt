@@ -58,10 +58,32 @@ abstract class ItemViewHolder<DATA, VH : RecyclerView.ViewHolder>(data: DATA? = 
     open fun onViewAttachedToWindow(holder: VH) {}
 }
 
+open class Fruit
+class Apple : Fruit()
+
+fun demo() {
+//    var fruits: ArrayList<out Fruit> = ArrayList<Apple>()
+//    fruits.add(Apple())//编译失败
+//    fruits[0]
+
+    val apples:ArrayList<in Apple> = ArrayList<Fruit>()
+    apples.add(Apple())
+    val any: Any? = apples[0]
+//    val apple1: Apple = apples[0]
+    val apple2: Apple = apples[0] as Apple
+}
+
 fun main(args: Array<String>) {
     val gc = GenC()
     val normal = Normal(1, gc)
     normal.getGen(gc)
 //    ItemViewHolder(gc)
+
+    val ints: Array<Int> = arrayOf(1, 2, 3)
+    val any = Array<Any>(3) { "" }
+    copy(ints, any)
 }
 
+fun copy(from:Array<out Any>,to : Array<Any>){
+
+}

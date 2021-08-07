@@ -11,16 +11,16 @@ public class Test {
     //可以安全地从该集合中读取 E，但不能写入， 因为不知道什么对象符合那个未知的 E 的子类型
 
     public static void main(String[] args) {
-        Collect<Collect.SupPar> superParents=new Collect();
-        Collect<Collect.Par> parents=new Collect();
-        Collect<Collect.Chi> child=new Collect();
-        child.add1(new Collect.Chi());
-
-        parents.addAll2(superParents);
-        parents.addAll3(child);
-
-        child.addAll2(superParents);
-        superParents.addAll3(child);
+//args        Collect<Collect.SupPar> superParents=new Collect();
+//        Collect<Collect.Par> parents=new Collect();
+//        Collect<Collect.Chi> child=new Collect();
+//        child.add1(new Collect.Chi());
+//
+//        parents.addAll2(superParents);
+//        parents.addAll3(child);
+//
+//        child.addAll2(superParents);
+//        superParents.addAll3(child);
 
     }
 }
